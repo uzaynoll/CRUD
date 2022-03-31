@@ -15,6 +15,11 @@ const App = () => {
           component={IndexScreen}
           options={{ title: "Notes List !!!!" }}
         />
+        <Stack.Screen
+          name="Show"
+          component={showScreen}
+          options={{ title: "Note Detail" }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
