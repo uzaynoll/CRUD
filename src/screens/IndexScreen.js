@@ -6,7 +6,7 @@ const IndexScreen = () => {
     const {state, addNotes} = useContext(Context);
 
     return <View>
-        {/* <Text> Index Screen.</Text> */}
+        <Text> Index Screen.</Text>
         <Button title='Add a new Note' onPress={addNotes} />
         <FlatList 
             data={state}
