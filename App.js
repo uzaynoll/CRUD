@@ -6,6 +6,7 @@ import { Provider } from "./src/context/NoteContext";
 import ShowScreen from "./src/screens/showScreen";
 import CreateScreen from "./src/screens/createScreen";
 import { EvilIcons } from '@expo/vector-icons';
+import EditScreen from "./src/screens/EditScreen";
 const App = () => {
   const Stack = createNativeStackNavigator();
 
@@ -16,7 +17,7 @@ const App = () => {
           name="Index"
           component={IndexScreen}
           options={{ 
-            title: "Notes List !!!!" ,
+            title: "Notes List" ,
           }}    
         />
         <Stack.Screen
@@ -28,6 +29,11 @@ const App = () => {
           name="Create"
           component={CreateScreen}
           options={{ title: "Create a new Note." }}
+        />
+        <Stack.Screen
+          name="Edit"
+          component={EditScreen}
+          options={{ title: "Edit a Note" }}
         />
       </Stack.Navigator>
     </NavigationContainer>

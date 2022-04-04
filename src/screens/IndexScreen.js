@@ -15,13 +15,17 @@ const IndexScreen = ({ navigation }) => {
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      headerRight: () => <EvilIcons name="plus" size={30} />,
+      headerRight: () => (
+        <TouchableOpacity onPress={() => navigation.navigate("Create")}>
+          <EvilIcons name="plus" size={30} />
+        </TouchableOpacity>
+      ),
     });
   }, [navigation]);
 
   return (
     <View>
-      <Button title="Add a new Note" onPress={addNotes} />
+      {/* <Button title="Add a new Note" onPress={addNotes} /> */}
       <FlatList
         data={state}
         keyExtractor={(Note) => Note.id}
