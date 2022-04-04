@@ -1,4 +1,4 @@
-import React, { useContext, useLayoutEffect } from "react";
+import React, { useContext, useLayoutEffect, useEffect } from "react";
 import {
   Text,
   View,
@@ -11,7 +11,19 @@ import { Context } from "../context/NoteContext";
 import { Entypo } from "@expo/vector-icons";
 import { EvilIcons } from "@expo/vector-icons";
 const IndexScreen = ({ navigation }) => {
-  const { state, addNotes, deleteNotes } = useContext(Context);
+  const { state, addNotes, deleteNotes, getNotes } = useContext(Context);
+
+  useEffect (() => {
+    getNotes();
+
+    const listener = navigation.addListener('focus', () => {
+      getNotes();
+    } );
+
+    return ( () => {
+      listener.remove();
+    });
+  }, []);
 
   useLayoutEffect(() => {
     navigation.setOptions({

@@ -1,16 +1,10 @@
 import createDataContext from "./createDataContext";
+import jsonServer from "../api/jsonServer";
 
 const reducer = (state, action) => {
   switch (action.type) {
-    case "addNote":
-      return [
-        ...state,
-        {
-          id: Math.floor(Math.random() * 9999),
-          title: action.payload.title,
-          content: action.payload.content,
-        },
-      ];
+    case "getNotes":
+      return action.payload;
     case "deleteNote":
       return state.filter((Note) => Note.id !== action.payload);
     case "editNote":
@@ -22,8 +16,8 @@ const reducer = (state, action) => {
   }
 };
 const addNotes = (dispatch) => {
-  return (title, content, callback) => {
-    dispatch({ type: "addNote", payload: { title, content } });
+  return async (title, content, callback) => {
+    await jsonServer.post("/notes", { title, content });
     if (callback) {
       callback();
     }
@@ -31,13 +25,15 @@ const addNotes = (dispatch) => {
 };
 
 const deleteNotes = (dispatch) => {
-  return (id) => {
+  return async (id) => {
+    await jsonServer.delete(`/notes/${id}`);
     dispatch({ type: "deleteNote", payload: id });
   };
 };
 
 const editNote = (dispatch) => {
-  return (id, title, content, callback) => {
+  return async (id, title, content, callback) => {
+    await jsonServer.put(`/notes/${id}`, {title, content})
     dispatch({ type: "editNote", payload: { id, title, content } });
     if (callback) {
       callback();
@@ -45,8 +41,15 @@ const editNote = (dispatch) => {
   };
 };
 
+const getNotes = (dispatch) => {
+  return async () => {
+    const response = await jsonServer.get("/notes");
+    dispatch({ type: "getNotes", payload: response.data });
+  };
+};
+
 export const { Context, Provider } = createDataContext(
   reducer,
-  { addNotes, deleteNotes, editNote },
-  [{ title: "Test Title", content: "Test Content", id: 1 }]
+  { addNotes, deleteNotes, editNote, getNotes },
+  []
 );
