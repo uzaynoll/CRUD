@@ -1,13 +1,18 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import {Text, View, StyleSheet} from 'react-native';
-import { shouldUseActivityState } from 'react-native-screens';
+import { Context } from '../context/NoteContext';
 
-const ShowScreen = () => {
+
+const ShowScreen = ({route}) => {
+    const { state } = useContext(Context);
+    const id = route.params.id;
+    const Note = state.find(
+        Note => Note.id === id);
     return <View>
-        <Text> Notes Detail will show here.</Text>
+        <Text> {Note.title}</Text>
     </View>
 };
 
 const styles = StyleSheet.create({});
 
-export default ShowScreen;
+export default ShowScreen; 
