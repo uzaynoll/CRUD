@@ -17,28 +17,35 @@ const ShowScreen = ({ route, navigation }) => {
   }, [navigation]);
   const { state } = useContext(Context);
   const id = route.params.id;
-  const Note = state.find((Note) => Note.id === id);
+  const Groceries = state.find((Groceries) => Groceries.id === id);
   return (
-    <View>
-      <Text style={styles.text}>Title:</Text> 
-      <Text style={styles.items}>{Note.title}</Text>
-      <Text style={styles.text}>Content:</Text> 
-      <Text style={styles.items}>{Note.content}</Text>
+    <View style={styles.container}>
+      <Text style={styles.text}>Item Name:</Text>
+      <Text style={styles.items}>{Groceries.title}</Text>
+      <Text style={styles.text}>Quantity:</Text>
+      <Text style={styles.items}>{Groceries.content}</Text>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#fff",
+    justifyContent: "flex-start",
+  },
   text: {
-    fontSize: 30,
+    fontSize: 25,
     fontWeight: "bold",
-    alignSelf: 'center'
+    alignSelf: "center",
+    marginBottom: 5,
+    borderBottomWidth: 2,
   },
   items: {
-      fontSize: 20,
-      alignSelf: 'center',
-      marginBottom: 10
-  }
+    fontSize: 20,
+    alignSelf: "center",
+    marginBottom: 20,
+  },
 });
 
 export default ShowScreen;

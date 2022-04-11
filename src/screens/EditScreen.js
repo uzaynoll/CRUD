@@ -4,14 +4,14 @@ import { Context } from "../context/NoteContext";
 import NoteForm from "../components/NoteForm";
 
 const EditScreen = ({ route, navigation }) => {
-  const { state, editNote } = useContext(Context);
+  const { state, editGroceries } = useContext(Context);
   const id = route.params.id;
-  const Note = state.find((Note) => Note.id === id);
+  const Groceries = state.find((Groceries) => Groceries.id === id);
   return (
     <NoteForm
-      initialValues={{ title: Note.title, content: Note.content }}
+      initialValues={{ title: Groceries.title, content: Groceries.content }}
       onSubmit={(title, content) => {
-        editNote(id, title, content, () => navigation.pop());
+        editGroceries(id, title, content, () => navigation.pop());
       }}
     />
   );

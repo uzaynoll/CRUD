@@ -3,53 +3,53 @@ import jsonServer from "../api/jsonServer";
 
 const reducer = (state, action) => {
   switch (action.type) {
-    case "getNotes":
+    case "getGroceries":
       return action.payload;
-    case "deleteNote":
-      return state.filter((Note) => Note.id !== action.payload);
-    case "editNote":
-      return state.map((Note) => {
-        return Note.id === action.payload.id ? action.payload : Note;
+    case "deleteGroceries":
+      return state.filter((Groceries) => Groceries.id !== action.payload);
+    case "editGroceries":
+      return state.map((Groceries) => {
+        return Groceries.id === action.payload.id ? action.payload : Groceries;
       });
     default:
       return state;
   }
 };
-const addNotes = (dispatch) => {
+const addGroceries = (dispatch) => {
   return async (title, content, callback) => {
-    await jsonServer.post("/notes", { title, content });
+    await jsonServer.post("/groceries", { title, content });
     if (callback) {
       callback();
     }
   };
 };
 
-const deleteNotes = (dispatch) => {
+const deleteGroceries = (dispatch) => {
   return async (id) => {
-    await jsonServer.delete(`/notes/${id}`);
-    dispatch({ type: "deleteNote", payload: id });
+    await jsonServer.delete(`/groceries/${id}`);
+    dispatch({ type: "deleteGroceries", payload: id });
   };
 };
 
-const editNote = (dispatch) => {
+const editGroceries = (dispatch) => {
   return async (id, title, content, callback) => {
-    await jsonServer.put(`/notes/${id}`, {title, content})
-    dispatch({ type: "editNote", payload: { id, title, content } });
+    await jsonServer.put(`/groceries/${id}`, { title, content });
+    dispatch({ type: "editGroceries", payload: { id, title, content } });
     if (callback) {
       callback();
     }
   };
 };
 
-const getNotes = (dispatch) => {
+const getGroceries = (dispatch) => {
   return async () => {
-    const response = await jsonServer.get("/notes");
-    dispatch({ type: "getNotes", payload: response.data });
+    const response = await jsonServer.get("/groceries");
+    dispatch({ type: "getGroceries", payload: response.data });
   };
 };
 
 export const { Context, Provider } = createDataContext(
   reducer,
-  { addNotes, deleteNotes, editNote, getNotes },
+  { addGroceries, deleteGroceries, editGroceries, getGroceries },
   []
 );

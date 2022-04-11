@@ -11,18 +11,19 @@ import { Context } from "../context/NoteContext";
 import { Entypo } from "@expo/vector-icons";
 import { EvilIcons } from "@expo/vector-icons";
 const IndexScreen = ({ navigation }) => {
-  const { state, addNotes, deleteNotes, getNotes } = useContext(Context);
+  const { state, addGroceries, deleteGroceries, getGroceries } =
+    useContext(Context);
 
-  useEffect (() => {
-    getNotes();
+  useEffect(() => {
+    getGroceries();
 
-    const listener = navigation.addListener('focus', () => {
-      getNotes();
-    } );
-
-    return ( () => {
-      listener.remove();
+    const listener = navigation.addListener("focus", () => {
+      getGroceries();
     });
+
+    return () => {
+      listener.remove();
+    };
   }, []);
 
   useLayoutEffect(() => {
@@ -36,11 +37,11 @@ const IndexScreen = ({ navigation }) => {
   }, [navigation]);
 
   return (
-    <View>
+    <View style={styles.container}>
       {/* <Button title="Add a new Note" onPress={addNotes} /> */}
       <FlatList
         data={state}
-        keyExtractor={(Note) => Note.id}
+        keyExtractor={(Groceries) => Groceries.id}
         renderItem={({ item }) => {
           return (
             <TouchableOpacity
@@ -48,11 +49,11 @@ const IndexScreen = ({ navigation }) => {
             >
               <View style={styles.view}>
                 <Text style={styles.text}>
-                  {item.title}-{item.id}{" "}
+                  {item.title} : {item.content}
                 </Text>
                 <TouchableOpacity
                   onPress={() => {
-                    deleteNotes(item.id);
+                    deleteGroceries(item.id);
                   }}
                 >
                   <Entypo name="trash" style={styles.icon} />
@@ -72,8 +73,10 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     paddingHorizontal: 15,
     paddingVertical: 25,
-    borderBottomWidth: 2,
-    borderBottomColor: "gray",
+    borderBottomWidth: 1,
+    borderBottomColor: "grey",
+    marginBottom: 10,
+    borderRadius: 4,
   },
   icon: {
     fontSize: 20,

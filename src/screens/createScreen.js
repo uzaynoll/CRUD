@@ -4,11 +4,11 @@ import { Context } from "../context/NoteContext";
 import NoteForm from "../components/NoteForm";
 
 const CreateScreen = ({ navigation }) => {
-  const { addNotes } = useContext(Context);
+  const { addGroceries } = useContext(Context);
   return (
     <NoteForm
       onSubmit={(title, content) => {
-        addNotes(title, content, () => navigation.navigate("Index"));
+        addGroceries(title, content, () => navigation.navigate("Index"));
       }}
     />
   );

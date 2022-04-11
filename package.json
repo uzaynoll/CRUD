@@ -23,7 +23,9 @@
     "react-native-unique-id": "^2.0.0",
     "react-native-uuid": "^2.0.1",
     "react-native-web": "0.17.1",
-    "uniqid": "^5.4.0"
+    "uniqid": "^5.4.0",
+    "expo-notifications": "~0.14.0",
+    "expo-device": "~4.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9"
